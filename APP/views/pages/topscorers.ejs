@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <div class="text-center mb-5">
+            <h3>Najlepsi strzelcy</h3>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Pozycja</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Drużyna</th>
+                    <th>Gole</th>
+                    <th>Asysty</th>
+                    <th>Kartki</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < topscorers.length; i++) {%>
+                <tr>
+                    <td><%= topscorers[i].pozycja %></td>
+                    <td><%= topscorers[i].imie %></td>
+                    <td><%= topscorers[i].nazwisko %></td>
+                    <td><%= topscorers[i].nazwa %></td>
+                    <td><%= topscorers[i].gole %></td>
+                    <td><%= topscorers[i].asysty %></td>
+                    <td><%= topscorers[i].kartki %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

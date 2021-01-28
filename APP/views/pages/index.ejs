@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Pozycja</th>
+                    <th>Nazwa</th>
+                    <th>Rozegrano</th>
+                    <th>Wygrane</th>
+                    <th>Remisy</th>
+                    <th>Przegrane</th>
+                    <th>Punkty</th>
+                    <th>Ilość piłkarzy:</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < teams.length; i++) {%>
+                <tr>
+                    <td><%= teams[i].pozycja %></td>
+                    <td><%= teams[i].nazwa %></td>
+                    <td><%= teams[i].rozegrano %></td>
+                    <td><%= teams[i].wygrane %></td>
+                    <td><%= teams[i].remisy %></td>
+                    <td><%= teams[i].przegrane %></td>
+                    <td><%= teams[i].punkty %></td>
+                    <td><%= teams[i].ilosc_pilkarzy %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -10,7 +10,7 @@ BEGIN
 	football.pilkarz_mecz.id_meczu AND NEW.id_pilkarza = football.pilkarz_mecz.id_pilkarza;
 
 	IF NEW.minuta NOT BETWEEN pilkarz_dane.poczatek_gry AND pilkarz_dane.koniec_gry THEN
-		RAISE EXCEPTION 'Podano złą minutę kartki!';
+		RAISE EXCEPTION 'Podano zła minute kartki!';
 		RETURN NULL;
 	END IF;
 
@@ -154,7 +154,7 @@ DECLARE
 BEGIN
 	SELECT * INTO rec FROM football.pilkarz_mecz p WHERE NEW.id_meczu = p.id_meczu AND NEW.id_pilkarza = p.id_pilkarza;
 	IF rec IS NULL THEN
-		RAISE EXCEPTION 'Bramka / asysta / kartka nie mogą zostać wprowadzone bez określenia piłkarza grającego w meczu!';
+		RAISE EXCEPTION 'Bramka / asysta / kartka nie moga zostac wprowadzone bez okreslenia piłkarza grajacego w meczu!';
 		RETURN NULL;
 	END IF;
 

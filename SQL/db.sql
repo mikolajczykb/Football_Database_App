@@ -338,11 +338,13 @@ INSERT INTO football.mecz (id_gospodarza, id_goscia, data_meczu, wynik_gospodarz
 INSERT INTO football.rola (id_meczu, id_sedziego, czy_glowny) VALUES (1, 1, TRUE);
 
 INSERT INTO football.pilkarz_mecz (id_meczu, id_pilkarza, czy_zmiennik, poczatek_gry, koniec_gry) VALUES (1, 11, FALSE, 0, 90);
+INSERT INTO football.pilkarz_mecz (id_meczu, id_pilkarza, czy_zmiennik, poczatek_gry, koniec_gry) VALUES (1, 10, FALSE, 0, 90);
+
 
 INSERT INTO football.bramki (id_meczu, id_pilkarza, minuta, czy_karny, czy_samoboj) VALUES (1, 11, 69, FALSE, FALSE);
 
 INSERT INTO football.asysta (id_meczu, id_pilkarza, minuta)
-	VALUES (1, 10, 69);
+	VALUES (1, 11, 69);
 
 INSERT INTO football.kartka (id_meczu, id_pilkarza, czy_zolta, czy_czerwona, minuta)
 	VALUES (1, 11, TRUE, FALSE, 69);

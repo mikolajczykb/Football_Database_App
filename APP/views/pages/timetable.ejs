@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <div class="text-center mb-5">
+            <h3>Terminarz</h3>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Numer kolejki</th>
+                    <th>Data meczu</th>
+                    <th>Gospodarz</th>
+                    <th>Gość</th>
+                    <th>Wynik</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < matches.length; i++) {%>
+                <tr>
+                    <td><%= matches[i].nr_kolejki %></td>
+                    <td><%= matches[i].data_meczu %></td>
+                    <td><%= matches[i].gospodarz %></td>
+                    <td><%= matches[i].gosc %></td>
+                    <td><%= matches[i].wynik_gospodarze + " - " + matches[i].wynik_goscie %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
