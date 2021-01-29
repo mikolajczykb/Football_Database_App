@@ -170,3 +170,27 @@ FOR ROW EXECUTE PROCEDURE check_pilkarz_mecz();
 
 CREATE TRIGGER sprawdz_pilkarz_mecz BEFORE INSERT OR UPDATE ON football.kartka
 FOR ROW EXECUTE PROCEDURE check_pilkarz_mecz();
+
+
+/* Trigger do sprawdzania czy zgadzaja sie nr koszulki w druzynie */
+
+CREATE OR REPLACE FUNCTION check_number()
+RETURNS TRIGGER
+AS
+$$
+DECLARE
+	rec RECORD;
+BEGIN
+	FOR rec IN (SELECT * FROM football.pilkarz p WHERE NEW.id_druzyny = p.id_druzyny) LOOP
+		IF rec.numer_na_koszulce = NEW.numer_na_koszulce THEN
+			RAISE EXCEPTION 'Dwaj pilkarze nie moga miec tego samego numeru koszulki w druzynie';
+			RETURN NULL;
+		END IF;
+	END LOOP;
+
+RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER sprawdz_numer BEFORE INSERT OR UPDATE ON football.pilkarz
+FOR ROW EXECUTE PROCEDURE check_number();

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Drużyny</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID drużyny</th>
+                        <th>Nazwa</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_druzyny %> </td>
+                        <td> <%= teams[i].nazwa %> </td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis piłkarzy</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania zawodnika</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/players" method="POST">
+                <label form="teamId">ID drużyny</label>
+                <input type="text" class="form-control w-50" id="teamId" name="teamId" aria-describedby="teamIdHelp" placeholder="Wprowadź ID drużyny" required>
+                <small id="teamIdHelp" class="form-text text-muted mb-2">ID poszczególnych drużyn można sprawdzić na pasku po lewej stronie</small>
+            
+                <label form="shirtNumber">Numer na koszulce</label>
+                <input type="text" class="form-control w-50 mb-2" id="shirtNumber" name="shirtNumber" placeholder="Numer na koszulce" required>
+            
+                <label form="name">Imię</label>
+                <input type="text" class="form-control w-50 mb-2" id="name" name="name" placeholder="Imię" required>
+
+                <label form="surname" class="">Nazwisko</label>
+                <input type="text" class="form-control w-50" id="surname" name="surname" placeholder="Nazwisko" required>
+                <button type="submit" class="btn btn-secondary float-right">Dodaj pracownika</button>
+            </form>
+        </div>
+
+        <% if (result) { %>
+            <div id="result">
+                <%= result %>
+            </div>
+        <%} else {%>
+            <% } %>
+        <% if(players) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id piłkarza</th>
+                            <th>Id drużyny</th>
+                            <th>Numer na koszulce</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < players.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= players[i].id_pilkarza %>
+                            </td>
+                            <td>
+                                <%= players[i].id_druzyny %>
+                            </td>
+                            <td>
+                                <%= players[i].numer_na_koszulce %>
+                            </td>
+                            <td>
+                                <%= players[i].imie %>
+                            </td>
+                            <td>
+                                <%= players[i].nazwisko %>
+                            
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('players', '<%= players[i].id_pilkarza %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info">Edytuj</button>
+                            </td>
+                            <td>
+                                <% if (players[i].czy_czerwona) { %>
+                                    <span class="btn btn-danger">Zawieszony</span>
+                                <%} else {%>
+                                    <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/players" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

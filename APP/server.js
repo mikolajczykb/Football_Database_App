@@ -15,12 +15,19 @@ app.use(
 );
 
 app.use(bodyParser.raw());
-app.use(express.static("public"));
+app.use(express.static("general"));
 
 var tableRouter = require('./routes/tableRouter');
 var topScorerRouter = require('./routes/topScorerRouter');
 var suspendRouter = require('./routes/suspendRouter');
 var timetableRouter = require('./routes/timetableRouter');
+var playerRouter = require('./routes/playerRouter');
+var matchRouter = require('./routes/matchRouter');
+var teamRouter = require('./routes/teamRouter');
+var refereeRouter = require('./routes/refereeRouter');
+var cardRouter = require('./routes/cardRouter');
+var goalRouter = require('./routes/goalRouter');
+var assistRouter = require('./routes/assistRouter');
 
 //app.get('/', (req, res) => {
 //    res.render('pages/index');
@@ -30,6 +37,18 @@ app.use('/', tableRouter);
 app.use('/topscorers', topScorerRouter);
 app.use('/suspended', suspendRouter);
 app.use('/timetable', timetableRouter);
+app.use('/players', playerRouter);
+//app.use('/matches', matchRouter);
+//app.use('/teams', teamRouter);
+//app.use('/referees', refereeRouter);
+//app.use('/cards', cardRouter);
+//app.use('/goals', goalRouter);
+//app.use('/assists', assistRouter);
+
+
+
+
+
 
 app.use((req, res, next) => {
     res.status(404).send({
