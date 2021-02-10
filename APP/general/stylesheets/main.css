@@ -20,14 +20,14 @@ td:hover {
     display: block;
 }
 
-#addForm {
+#addForm, #updateForm {
     display: none;
 }
 
 #sidebar{
     position: absolute;
     top: 100px;
-    left: 100px;
+    left: 10px;
     z-index: 1; /* Stay on top */
     transition: top 0.3s;
     transition-timing-function: ease-in-out;

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Piłkarze</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID piłkarza</th>
+                        <th>Nazwisko</th>
+                        <th>Id drużyny</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_pilkarza %> </td>
+                        <td> <%= teams[i].nazwisko %></td>
+                        <td> <%= teams[i].id_druzyny %> </td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis piłkarzy w meczach</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania piłkarza w meczu</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/matchplayers" method="POST">
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+                <small id="matchIdHelp" class="form-text text-muted mb-2">Do wyszukania ID meczu polecam otworzyć w osobnej karcie</small>
+
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID pilkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="isSub">Czy zmiennik</label>
+                <select id="isSub" name="isSub" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <label for="startGame" class="">Początek gry</label>
+                <input type="number" class="form-control w-50" id="startGame" name="startGame"  required>
+
+                <label for="endGame" class="">Koniec gry</label>
+                <input type="number" class="form-control w-50" id="endGame" name="endGame"  required>
+                <button type="submit" class="btn btn-secondary float-right">Dodaj zawodnika w meczu</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">Identyfikator pozycji - ID meczu x ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+
+                <!--
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID piłkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+                    -->
+                <label for="isSub">Czy zmiennik</label>
+                <select id="isSub" name="isSub" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <label for="startGame" class="">Początek gry</label>
+                <input type="number" class="form-control w-50" id="startGame" name="startGame"  required>
+
+                <label for="endGame" class="">Koniec gry</label>
+                <input type="number" class="form-control w-50" id="endGame" name="endGame"  required>
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj zawodnika w meczu" onclick="updateRow('matchplayers', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+            <% } %>
+        </div>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id meczu</th>
+                            <th>Id piłkarza</th>
+                            <th>Czy zmiennik</th>
+                            <th>Początek gry</th>
+                            <th>Koniec gry</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= items[i].id_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].id_pilkarza %>
+                            </td>
+                            <td>
+                                <%= items[i].czy_zmiennik %>
+                            </td>
+                            <td>
+                                <%= items[i].poczatek_gry %>
+                            </td>
+                            <td>
+                                <%= items[i].koniec_gry %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('matchplayers', '<%= items[i].id_meczu %>' + 'x' + '<%= items[i].id_pilkarza %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm('<%= items[i].id_meczu %>' + 'x' + '<%= items[i].id_pilkarza %>')">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+             </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/matchplayers" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

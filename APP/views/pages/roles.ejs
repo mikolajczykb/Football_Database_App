@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Sędziowie</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID sędziego</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_sedziego %> </td>
+                        <td> <%= teams[i].imie %> </td>
+                        <td> <%= teams[i].nazwisko %></td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis ról sędziów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania roli</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/roles" method="POST">
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="refereeId">ID sędziego</label>
+                <input type="text" class="form-control w-50" id="refereeId" name="refereeId" aria-describedby="refereeIdHelp" placeholder="Wprowadź ID sędziego" required>
+                <small id="refereeIdHelp" class="form-text text-muted mb-2">ID poszczególnych sędziów można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="isMain">Czy główny</label>
+                <select id="isMain" name="isMain" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj rolę</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">Identyfikator pozycji - ID meczu x ID gościa</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="refereeId">ID sędziego</label>
+                <input type="text" class="form-control w-50" id="refereeId" name="refereeId" aria-describedby="refereeIdHelp" placeholder="Wprowadź ID sędziego" required>
+                <small id="refereeIdHelp" class="form-text text-muted mb-2">ID poszczególnych sędziów można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="isMain">Czy glowny</label>
+                <select id="isMain" name="isMain" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj rolę" onclick="updateRow('roles', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+            <% } %>
+        </div>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id meczu</th>
+                            <th>Id sędziego</th>
+                            <th>Czy główny</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= items[i].id_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].id_sedziego %>
+                            </td>
+                            <td>
+                                <%= items[i].czy_glowny %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('roles', '<%= items[i].id_meczu %>' + 'x' + '<%= items[i].id_sedziego %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm('<%= items[i].id_meczu %>' + 'x' + '<%= items[i].id_sedziego %>')">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/roles" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

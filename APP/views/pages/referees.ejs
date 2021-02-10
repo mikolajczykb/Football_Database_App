@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis sędziów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania sędziego</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/referees" method="POST">
+
+                <label for="name">Imię</label>
+                <input type="text" class="form-control w-50" id="name" name="name" aria-describedby="nameHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="surname" class="">Nazwisko</label>
+                <input type="text" class="form-control w-50" id="surname" name="surname" placeholder="Nazwisko" required>
+
+                <label for="birthDate">Data urodzenia</label>
+                <input type="date" class="form-control w-50 mb-2" id="birthDate" name="birthDate" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj sędziego</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">ID sędziego</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+            
+                <label for="name">Imię</label>
+                <input type="text" class="form-control w-50" id="name" name="name" aria-describedby="nameHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="surname" class="">Nazwisko</label>
+                <input type="text" class="form-control w-50" id="surname" name="surname" placeholder="Nazwisko" required>
+
+                <label for="birthDate">Data urodzenia</label>
+                <input type="date" class="form-control w-50 mb-2" id="birthDate" name="birthDate" required>
+
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj sędziego" onclick="updateRow('referees', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+        </div>
+            <% } %>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id sędziego</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Data urodzenia</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= items[i].id_sedziego %>
+                            </td>
+                            <td>
+                                <%= items[i].imie %>
+                            </td>
+                            <td>
+                                <%= items[i].nazwisko %>
+                            </td>
+                            <td>
+                                <%= items[i].data_urodzenia %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('referees', '<%= items[i].id_sedziego %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm(<%= items[i].id_sedziego %>)">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/referees" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

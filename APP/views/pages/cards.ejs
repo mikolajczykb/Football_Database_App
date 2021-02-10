@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Piłkarze</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID piłkarza</th>
+                        <th>Nazwisko</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_pilkarza %> </td>
+                        <td> <%= teams[i].nazwisko %></td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis kartek</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania kartek</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/cards" method="POST">
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID pilkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="minute" class="">Minuta</label>
+                <input type="number" class="form-control w-50" id="minute" name="minute"  required>
+
+                <label for="isYellowCard">Czy żółta</label>
+                <select id="isYellowCard" name="isYellowCard" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <label for="isRedCard">Czy czerwona</label>
+                <select id="isRedCard" name="isRedCard" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj kartkę</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">Id kartki</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+
+                <!--
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID piłkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+                -->
+                <label for="minute" class="">Minuta</label>
+                <input type="number" class="form-control w-50" id="minute" name="minute"  required>
+
+                
+                <label for="isYellowCard">Czy żółta</label>
+                <select id="isYellowCard" name="isYellowCard" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+
+                <label for="isRedCard">Czy czerwona</label>
+                <select id="isRedCard" name="isRedCard" class="form-control w-50">
+                    <option value="True">Tak</option>
+                    <option value="False">Nie</option>
+                </select>
+                
+
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj kartkę" onclick="updateRow('cards', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+            <% } %>
+        </div>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id kartki</th>
+                            <th>Id meczu</th>
+                            <th>Id piłkarza</th>
+                            <th>Minuta</th>
+                            <th>Czy żółta</th>
+                            <th>Czy czerwona</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%= items[i].id_kartki %>
+                            </td>
+                            <td>
+                                <%= items[i].id_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].id_pilkarza %>
+                            </td>
+                            <td>
+                                <%= items[i].minuta %>
+                            </td>
+                            <td>
+                                <%= items[i].czy_zolta %>
+                            </td>
+                            <td>
+                                <%= items[i].czy_czerwona %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('cards', '<%= items[i].id_kartek %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm('<%= items[i].id_kartek %>')">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+             </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/cards" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

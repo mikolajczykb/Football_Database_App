@@ -28,6 +28,7 @@
                     <th>Gospodarz</th>
                     <th>Gość</th>
                     <th>Wynik</th>
+                    <th>Główny sędzia</th>
                 </tr>
             </thead>
             <% for (var i = 0; i < matches.length; i++) {%>
@@ -37,6 +38,7 @@
                     <td><%= matches[i].gospodarz %></td>
                     <td><%= matches[i].gosc %></td>
                     <td><%= matches[i].wynik_gospodarze + " - " + matches[i].wynik_goscie %></td>
+                    <td><%= matches[i].glowny_sedzia %></td>
                 </tr>
             <% } %>
         </table>

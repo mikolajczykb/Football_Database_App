@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Drużyny</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID drużyny</th>
+                        <th>Nazwa</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_druzyny %> </td>
+                        <td> <%= teams[i].nazwa %> </td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis meczy</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania meczu</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/matches" method="POST">
+                <label for="hostId">ID gospodarza</label>
+                <input type="text" class="form-control w-50" id="hostId" name="hostId" aria-describedby="hostIdHelp" placeholder="Wprowadź ID gospodarza" required>
+                <small id="hostIdHelp" class="form-text text-muted mb-2">ID poszczególnych drużyn można sprawdzić na pasku po lewej stronie</small>
+            
+                <label for="guestId">ID gościa</label>
+                <input type="text" class="form-control w-50" id="guestId" name="guestId" aria-describedby="guestIdHelp" placeholder="Wprowadź ID gościa" required>
+                <small id="guestIdHelp" class="form-text text-muted mb-2">ID poszczególnych drużyn można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="date">Data meczu</label>
+                <input type="date" class="form-control w-50 mb-2" id="date" name="date" required>
+                <!--
+                <label for="hostScore">Wynik gospodarza</label>
+                <input type="number" class="form-control w-50 mb-2" id="hostScore" name="hostScore" required>
+
+                <label for="guestScore" class="">Wynik gościa</label>
+                <input type="number" class="form-control w-50" id="guestScore" name="guestScore"  required>
+                -->
+                <label for="matchday" class="">Nr kolejki</label>
+                <input type="number" class="form-control w-50" id="matchday" name="matchday"  required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj mecz</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">ID meczu</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+            
+                <!--
+                <label for="hostId">ID gospodarza</label>
+                <input type="text" class="form-control w-50" id="hostId" name="hostId" aria-describedby="hostIdHelp" placeholder="Wprowadź ID gospodarza" required>
+                <small id="hostIdHelp" class="form-text text-muted mb-2">ID poszczególnych drużyn można sprawdzić na pasku po lewej stronie</small>
+            
+                <label for="guestId">ID gościa</label>
+                <input type="text" class="form-control w-50" id="guestId" name="guestId" aria-describedby="guestIdHelp" placeholder="Wprowadź ID gościa" required>
+                <small id="guestIdHelp" class="form-text text-muted mb-2">ID poszczególnych drużyn można sprawdzić na pasku po lewej stronie</small>
+                -->
+                <label for="date">Data meczu</label>
+                <input type="date" class="form-control w-50 mb-2" id="date" name="date" required>
+            
+                <!--
+                <label for="hostScore">Wynik gospodarza</label>
+                <input type="number" class="form-control w-50 mb-2" id="hostScore" name="hostScore" required>
+
+                <label for="guestScore" class="">Wynik gościa</label>
+                <input type="number" class="form-control w-50" id="guestScore" name="guestScore"  required>
+                -->
+                <label for="matchday" class="">Nr kolejki</label>
+                <input type="number" class="form-control w-50" id="matchday" name="matchday"  required>
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj mecz" onclick="updateRow('matches', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+        </div>
+            <% } %>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id meczu</th>
+                            <th>Id gospodarza</th>
+                            <th>Id gościa</th>
+                            <th>Data meczu</th>
+                            <th>Wynik gospodarza</th>
+                            <th>Wynik gościa</th>
+                            <th>Nr kolejki</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= items[i].id_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].id_gospodarza %>
+                            </td>
+                            <td>
+                                <%= items[i].id_goscia %>
+                            </td>
+                            <td>
+                                <%= items[i].data_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].wynik_gospodarze %>
+                            </td>
+                            <td>
+                                <%= items[i].wynik_goscie %>
+                            </td>
+                            <td>
+                                <%= items[i].nr_kolejki %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('matches', '<%= items[i].id_meczu %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm(<%= items[i].id_meczu %>)">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/matches" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,5 +1,0 @@
-trigger dajacy zawieszenie jesli otrzymano kartke
-trigger zmniejszajacy ilosc meczow w zawieszeniu (po wrzuceniu meczu)
-trigger zwiekszajacy ilosc punktow (w zaleznosci od rezultatu meczu)
-
-widok - tabela pokazujaca

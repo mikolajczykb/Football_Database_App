@@ -27,11 +27,20 @@
                     <th>Remisy</th>
                     <th>Przegrane</th>
                     <th>Punkty</th>
-                    <th>Ilość piłkarzy:</th>
+                    <th>Ilość piłkarzy</th>
                 </tr>
             </thead>
             <% for (var i = 0; i < teams.length; i++) {%>
-                <tr>
+                <% if (teams[i].pozycja == 1) { %> 
+                    <tr class="table-success"> 
+                
+                <% } else if (teams[i].pozycja > 1 && teams[i].pozycja <= 4) { %>
+                    <tr class="table-primary">
+                <% } else if (teams[i].pozycja >= teams.length - 2) { %>
+                    <tr class="table-danger">
+                <% } else { %>
+                    <tr>
+                <% } %>
                     <td><%= teams[i].pozycja %></td>
                     <td><%= teams[i].nazwa %></td>
                     <td><%= teams[i].rozegrano %></td>

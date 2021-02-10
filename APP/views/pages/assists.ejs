@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+    <nav id="sidebar">
+        <% if (teams) { %>
+            <h4 class="text-center">Piłkarze</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="mr-5">ID piłkarza</th>
+                        <th>Nazwisko</th>
+                    </tr>
+                </thead>
+                <% for (var i = 0; i < teams.length; i++) { %>
+                    <tr>   
+                        <td> <%= teams[i].id_pilkarza %> </td>
+                        <td> <%= teams[i].nazwisko %></td>
+                    </tr>
+                <% } %>
+            </table>
+        
+        <%} else {%>
+            <% } %>
+    </nav>
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis asyst</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania asysty</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/assists" method="POST">
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID pilkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+
+                <label for="minute" class="">Minuta</label>
+                <input type="number" class="form-control w-50" id="minute" name="minute"  required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj asysty</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">ID asysty</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+
+                <!--
+                <label for="matchId">ID meczu</label>
+                <input type="text" class="form-control w-50" id="matchId" name="matchId" aria-describedby="matchIdHelp" placeholder="Wprowadź ID meczu" required>
+            
+                <label for="playerId">ID piłkarza</label>
+                <input type="text" class="form-control w-50" id="playerId" name="playerId" aria-describedby="playerIdHelp" placeholder="Wprowadź ID piłkarza" required>
+                <small id="playerIdHelp" class="form-text text-muted mb-2">ID poszczególnych piłkarzy można sprawdzić na pasku po lewej stronie</small>
+                    -->
+                <label for="minute" class="">Minuta</label>
+                <input type="number" class="form-control w-50" id="minute" name="minute"  required>
+
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj asysty" onclick="updateRow('assists', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+            <% } %>
+        </div>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id asysty</th>
+                            <th>Id meczu</th>
+                            <th>Id piłkarza</th>
+                            <th>Minuta</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%= items[i].id_asysty %>
+                            </td>
+                            <td>
+                                <%= items[i].id_meczu %>
+                            </td>
+                            <td>
+                                <%= items[i].id_pilkarza %>
+                            </td>
+                            <td>
+                                <%= items[i].minuta %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('assists', '<%= items[i].id_asysty %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm('<%= items[i].id_asysty %>')">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+             </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/assists" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+
+<body>
+
+
+
+
+
+<main class="container">
+    <nav>
+        <%- include('../partials/header'); %>
+    </nav>
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis drużyn</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania drużyny</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/teams" method="POST">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control w-50" id="name" name="name" aria-describedby="nameHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="address">Adres</label>
+                <input type="text" class="form-control w-50" id="address" name="address" aria-describedby="addressHelp" placeholder="Wprowadź adres" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj drużynę</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+                <label for="Id">ID drużyny</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+            
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control w-50" id="name" name="name" aria-describedby="nameHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="address">Adres</label>
+                <input type="text" class="form-control w-50" id="address" name="address" aria-describedby="addressHelp" placeholder="Wprowadź adres" required>
+
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj drużynę" onclick="updateRow('teams', this.form)">
+            </form>
+        </div>
+
+        <div id="result">
+        <% if (result) { %>
+                <%= result %>
+        <%} else {%>
+            <% } %>
+        </div>
+        <% if(items) { %>
+
+            <div id="resultTable">
+                <table class="table table-hover table-sm mt-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id drużyny</th>
+                            <th>Nazwa</th>
+                            <th>Adres</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < items.length; i++) { %>
+                        <tr>    
+                            <td>
+                                <%= items[i].id_druzyny %>
+                            </td>
+                            <td>
+                                <%= items[i].nazwa %>
+                            </td>
+                            <td>
+                                <%= items[i].adres %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('teams', '<%= items[i].id_druzyny %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm(<%= items[i].id_druzyny %>)">Edytuj</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/teams" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+            <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
