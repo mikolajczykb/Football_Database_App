@@ -1,1 +1,0 @@
-W plikach nie zawarto folderu node_modules, generowanego przez system po wykonaniu komendy npm start.
