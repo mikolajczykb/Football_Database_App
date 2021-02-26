@@ -1,6 +1,5 @@
 # Football League Database App
 
-![GitHub](https://img.shields.io/github/license/mikolajczykb/Football_Database_App)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mikolajczykb/Football_Database_App)
 ![GitHub top language](https://img.shields.io/github/languages/top/mikolajczykb/Football_Database_App)
 ![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)
