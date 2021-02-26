@@ -7,6 +7,7 @@
 
 
 ## Project idea
+
 The app was created for a university class, allowing the user to add, remove, update and view data related to football games (goals, assists, cards).
 It was deployed on Heroku, link: https://football-league-table-app.herokuapp.com/
 
@@ -15,3 +16,16 @@ It was deployed on Heroku, link: https://football-league-table-app.herokuapp.com
   Backend: **Node.js + Express** 
   Database: **PostgreSQL**
   Frontend: **HTML, CSS + EJS**
+
+## Skills gained during project
+
+  -> Deeper understanding of Node.js used with Express
+  -> Handling of database such as PostgreSQL
+  -> Connecting to a remote database and working with it (ElephantSQL)
+  -> Deploying an app to Heroku
+  -> Learning Bootstrap
+  
+## Things to develop
+
+  -> Improve the database functions and triggers (card handling etc.)
+  -> Add admin database privileges (so that a normal user can't change data)
