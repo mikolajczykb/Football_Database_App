@@ -12,9 +12,9 @@ It was deployed on Heroku, link: https://football-league-table-app.herokuapp.com
   
 ## Tech stack used in the project:
   
-  Backend: **Node.js + Express** 
-  Database: **PostgreSQL**
-  Frontend: **HTML, CSS + EJS**
+  Backend: **Node.js + Express**  
+  Database: **PostgreSQL**  
+  Frontend: **HTML, CSS + EJS**  
   
 ## Skills gained during project
   
