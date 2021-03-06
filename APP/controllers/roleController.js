@@ -1,4 +1,3 @@
-const e = require('express');
 const { response } = require('express');
 const pool = require('../database');
 
@@ -8,7 +7,7 @@ const getTable = (request, response) => {
         var referees;
         const RefereeQuery = pool.query("SELECT * FROM football.sedzia d ORDER BY d.id_sedziego", (error, result) => {
             if (error) {
-                return response.status(400).render('pages/referees', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli sedzia"});
+                return response.status(400).render('pages/roles', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli sedzia"});
             } else {
                 referees = result.rows;
             }
@@ -19,7 +18,7 @@ const getTable = (request, response) => {
                 return response.status(400).render('pages/roles', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli ról"});
             } else {
                 roles = result.rows;
-                return response.status(200).render('pages/Roles', {items: roles, teams: referees, result: ""});
+                return response.status(200).render('pages/roles', {items: roles, teams: referees, result: ""});
             }
         });
     } catch (error) {
@@ -70,7 +69,7 @@ const addRole = (request, response) => {
                 var referees;
                 const RefereeQuery = pool.query("SELECT * FROM football.sedzia d ORDER BY d.id_sedziego", (error, result) => {
                     if (error) {
-                        return response.status(400).render('pages/referees', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli sedzia"});
+                        return response.status(400).render('pages/roles', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli sedzia"});
                     } else {
                         referees = result.rows;
                     }

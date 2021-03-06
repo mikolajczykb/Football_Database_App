@@ -33,7 +33,7 @@ const deleteCard = (request, response) => {
     //const matchId = str.substring(0, n);
     //const playerId = str.substring(n + 1, str.length);
     try {
-        const deleteQuery = pool.query('DELETE FROM football.kartka WHERE id_asysty = $1', [cardId], (error, result) => {
+        const deleteQuery = pool.query('DELETE FROM football.kartka WHERE id_kartki = $1', [cardId], (error, result) => {
             if (error) {
                 //return response.status(400).send({message: "Nie udało się usunąć rekordu"});
                 response.send({stat: 400, message: "Nie udało się usunąć rekordu"});
@@ -65,9 +65,9 @@ const addCard = (request, response) => {
                     }
                 });
                 var cards;
-                const CardQuery = pool.query("SELECT * FROM football.kartka d ORDER BY d.id_asysty", (error, result) => {
+                const CardQuery = pool.query("SELECT * FROM football.kartka d ORDER BY d.id_kartki", (error, result) => {
                     if (error) {
-                        return response.status(400).render('pages/cards', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli piłkarzy w meczu"});
+                        return response.status(400).render('pages/cards', {items: 0, teams: 0, result: "Wystąpił błąd przy pobieraniu tabeli kartek"});
                     } else {
                         cards = result.rows;
                         //return response.status(200).render('pages/cards', {items: cards, teams: players, result: ""});
