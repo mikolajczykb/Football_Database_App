@@ -2,7 +2,7 @@
   
 ![GitHub last commit](https://img.shields.io/github/last-commit/mikolajczykb/Football_Database_App)
 ![GitHub top language](https://img.shields.io/github/languages/top/mikolajczykb/Football_Database_App)
-![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)  
+![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)
 ![Live Demo](https://img.shields.io/badge/demo-online-green.svg)  
   
 ![App screenshot](./app_view.png)
