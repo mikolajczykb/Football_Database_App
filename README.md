@@ -4,6 +4,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/mikolajczykb/Football_Database_App)
 ![GitHub language count](https://img.shields.io/github/languages/count/mikolajczykb/Football_Database_App)
   
+![App screenshot](./app_view.png)
   
 ## Project idea
   
